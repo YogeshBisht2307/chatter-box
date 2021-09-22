@@ -13,9 +13,17 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+
 io.on('connection', (socket) => {
     console.log("We have a new Connetion !!!!");
 
+    //receiving the data which is sended from backend
+    socket.on('join', ({name, room}, callback) =>{
+        const error = false;
+        if(error){
+            callback({ error: "Error" });
+        }
+    })
     socket.on('disconnect',() =>{
         console.log("User had left !!!!");
     })
