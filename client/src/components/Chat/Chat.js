@@ -6,6 +6,8 @@ import io from 'socket.io-client';
 import './Chat.css';
 
 import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
+import Messages from '../Messages/Messages';
 let socket;
 
 const Chat = ({ location })=>{
@@ -34,7 +36,6 @@ const Chat = ({ location })=>{
         });
 
         return () =>{
-            
             socket.emit('disconnect');
             socket.off();
         }
@@ -57,22 +58,14 @@ const Chat = ({ location })=>{
         }
     }
 
-
-    console.log(message, messages);
-
     return (
-        <div className="outerContainer">
-            <div className="container">
-                <InfoBar room = {room}/>
-
-                {/* <input 
-                    value={message} 
-                    onChange={(event) => setMessage(event.target.value)} 
-                    onKeyPress = {event => event.key === 'Enter' ? sendMessage(event) : null}
-                    /> */}
-
+            <div className="outerContainer">
+                <div className="container">
+                    <InfoBar room = {room}/>
+                    <Messages messages ={messages} name={name}/>
+                    <Input message={message} setMessage = {setMessage} sendMessage={sendMessage}/>
+                </div>
             </div>
-        </div>
     )
 }
 
